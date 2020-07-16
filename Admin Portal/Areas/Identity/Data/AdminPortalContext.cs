@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
-namespace Admin_Portal.Models
+namespace Admin_Portal.Data
 {
-    public class CustomDBContext : IdentityDbContext<CustomAppUser>
+    public class AdminPortalContext : IdentityDbContext<IdentityUser>
     {
-        public CustomDBContext(DbContextOptions<CustomDBContext> options)
-             : base(options)
+        public AdminPortalContext(DbContextOptions<AdminPortalContext> options)
+            : base(options)
         {
         }
 
@@ -21,6 +22,5 @@ namespace Admin_Portal.Models
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
-
     }
 }

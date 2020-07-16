@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Admin_Portal.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +26,11 @@ namespace Admin_Portal
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddDbContext<CustomDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CustomeDBContext")));
+            services.AddDbContext<CustomDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AdminPortalContextConnection")));
+            services.AddIdentity<CustomAppUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddDefaultTokenProviders()
+                .AddDefaultUI()
+         .AddEntityFrameworkStores<CustomDBContext>();
             services.AddRazorPages();
             services.AddControllersWithViews();
         }
@@ -44,6 +49,9 @@ namespace Admin_Portal
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
